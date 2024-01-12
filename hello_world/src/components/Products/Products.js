@@ -25,8 +25,8 @@ const Products = () => {
     const[item, setItem] = useState({
             id: 0,
             title: "Title of Product 1",
-            discountedPrice: 340,
             price: 400,
+            discountedPrice: 340,
             thumbnail: "/assets/random.jpg"
     
     })
@@ -37,12 +37,15 @@ const Products = () => {
         })        
     }
     const handlePrice = (event) => {
-        event.preventDefault();
+        setItem({
+            ...item,
+            price:event.target.value
+        })
         }
     const handleDiscountedPrice = (event) => {
         setItem({
             ...item,
-            discountedPrice:event.target.value
+            discountedPrice:event.target.value,
         })
     }
     
@@ -58,9 +61,9 @@ const Products = () => {
           <label>Title</label><br/>
           <input value={item.title} onChange={handleTitle}></input><br/>
           <label>Price</label><br/>
-          <input onChange={handlePrice}></input><br/>
+          <input value={item.price} onChange={handlePrice}></input><br/>
           <label>Discounted Price</label><br/>
-          <input onChange={handleDiscountedPrice}></input><br/>
+          <input value={item.discountedPrice} onChange={handleDiscountedPrice}></input><br/>
           <button onClick={handleButton}>Submit</button>
           </form>
 
