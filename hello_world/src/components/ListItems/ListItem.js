@@ -2,13 +2,15 @@ import AddtoCartIcon from '../../assets/icons/cart.svg'
 import { useState } from 'react';
 const ListItem = ({ data }) => {
 
-    let Oldmessage="Not Added to Cart yet"
+    const [counter, setCounter] = useState(1)
 
-    const[message, setMessage] = useState(Oldmessage)
-
-    const AddtoCart = () => {
-        const NewMessage = 'Item Added to Cart'
-        setMessage(NewMessage)
+    const increaseCounter = () => {
+        setCounter(counter + 1)
+    }
+    const decreaseCounter = () => {
+        if (counter > 0) {
+            setCounter(counter - 1)
+        }
     }
     return (
         <div className={'item-card'}>
@@ -22,11 +24,16 @@ const ListItem = ({ data }) => {
                     <h2>{data.title}</h2>
                 </div>
             </div>
-            <span className='cart-message'>{message}</span>
+            <span className='cart-message'>{ }</span>
             <button className={'cart-add'}>
-                <span onClick={() => {AddtoCart()}}>Add to Cart</span>
+                <span>Add to Cart</span>
                 <img src={AddtoCartIcon} alt="cart here" />
             </button>
+            <div className='cart-addon'>
+                <button onClick={() => { decreaseCounter() }}><span>-</span></button>
+                <span className='counter'>{counter}</span>
+                <button onClick={() => { increaseCounter() }}><span>+</span></button>
+            </div>
         </div>
     )
 };
