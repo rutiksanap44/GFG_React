@@ -30,22 +30,29 @@ const Products = () => {
             thumbnail: "/assets/random.jpg"
     
     })
-    const handleTitle = (event) => {
+    // const handleTitle = (event) => {
+    //     setItem({
+    //         ...item,
+    //         title:event.target.value
+    //     })        
+    // }
+    // const handlePrice = (event) => {
+    //     setItem({
+    //         ...item,
+    //         price:event.target.value
+    //     })
+    //     }
+    // const handleDiscountedPrice = (event) => {
+    //     setItem({
+    //         ...item,
+    //         [event.target.name]:event.target.value,
+    //     })
+    // } 
+
+    const handleInput = event => {
         setItem({
             ...item,
-            title:event.target.value
-        })        
-    }
-    const handlePrice = (event) => {
-        setItem({
-            ...item,
-            price:event.target.value
-        })
-        }
-    const handleDiscountedPrice = (event) => {
-        setItem({
-            ...item,
-            discountedPrice:event.target.value,
+            [event.target.name]:event.target.value
         })
     }
     
@@ -59,11 +66,11 @@ const Products = () => {
           <div>
           <form>
           <label>Title</label><br/>
-          <input value={item.title} onChange={handleTitle}></input><br/>
+          <input name='title' value={item.title} onChange={handleInput}></input><br/>
           <label>Price</label><br/>
-          <input value={item.price} onChange={handlePrice}></input><br/>
+          <input name='price' value={item.price} onChange={handleInput}></input><br/>
           <label>Discounted Price</label><br/>
-          <input value={item.discountedPrice} onChange={handleDiscountedPrice}></input><br/>
+          <input name='discountedPrice' value={item.discountedPrice} onChange={handleInput}></input><br/>
           <button onClick={handleButton}>Submit</button>
           </form>
 
