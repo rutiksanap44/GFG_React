@@ -1,19 +1,20 @@
 const Form = (props) => {
-    const handleInput = e => {
-        props.onChangeInput(e);
-    }
     
     const handleButton = (event) => {
         event.preventDefault();
     }
+    const handleInput = e => {
+        // console.log(props.onChangeInput(e))
+        props.onChangeInput(e)
+    }
     return (
-        <form>
+        <form onSubmit = { () => {}}>
             <label>Title</label><br />
-            <input value={props.item.title} onChange={handleInput}></input><br />
+            <input name="title" value={props.item.title} onChange={handleInput}></input><br />
             <label>Price</label><br />
-            <input value={props.item.price} onChange={handleInput}></input><br />
+            <input name="price" value={props.item.price} onChange={handleInput}></input><br />
             <label>Discounted Price</label><br />
-            <input value={props.item.discountedPrice} onChange={handleInput}></input><br />
+            <input name="discountedPrice" value={props.item.discountedPrice} onChange={handleInput}></input><br />
             <button onClick={handleButton}>Submit</button>
         </form>
     )

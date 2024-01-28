@@ -1,3 +1,4 @@
+import Form from "../Form/Form";
 import ListItem from "../ListItems/ListItem";
 import { useState } from "react";
 
@@ -20,39 +21,13 @@ import { useState } from "react";
 // ]
 
 const Products = () => {
-  const [item, setItem] = useState(
-    {
-      id: 0,
-      title: "Title of Product 1",
-      price: 400,
-      discountedPrice: 340,
-      thumbnail: "/assets/random.jpg",
-    });
-  // const handleTitle = (event) => {
-  //     setItem({
-  //         ...item,
-  //         title:event.target.value
-  //     })
-  // }
-  // const handlePrice = (event) => {
-  //     setItem({
-  //         ...item,
-  //         price:event.target.value
-  //     })
-  //     }
-  // const handleDiscountedPrice = (event) => {
-  //     setItem({
-  //         ...item,
-  //         [event.target.name]:event.target.value,
-  //     })
-  // }
-
-  const handleTitle = (event) => {
-    setItem({
-      ...item,
-      title: event.target.value,
-    });
-  };
+  const [item, setItem] = useState({
+    id: 0,
+    title: "Title of Product 1",
+    price: 400,
+    discountedPrice: 340,
+    thumbnail: "/assets/random.jpg",
+  });
 
   const handleInput = (event) => {
     setItem({
@@ -68,12 +43,12 @@ const Products = () => {
       {item.map((elements) => {
         return <ListItem data={elements} />;
       })} */}
-      <ListItem data={item}></ListItem>
+      <ListItem key={item.id} data={item}></ListItem>
       <div>
-        <form>
+        {/* <form>
           <label>Title</label>
           <br />
-          <input name="title" value={item.title} onChange={handleTitle}></input>
+          <input name="title" value={item.title} onChange={handleInput}></input>
           <br />
           <label>Price</label>
           <br />
@@ -88,8 +63,9 @@ const Products = () => {
           ></input>
           <br />
           <button onClick={handleButton}>Submit</button>
-        </form>
+    </form> */}
       </div>
+      <Form item={item} onChangeInput={handleInput}></Form>
     </div>
   );
 };
