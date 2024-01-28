@@ -20,22 +20,14 @@ import { useState } from "react";
 // ]
 
 const Products = () => {
-  const [item, setItem] = useState([
+  const [item, setItem] = useState(
     {
       id: 0,
       title: "Title of Product 1",
       price: 400,
       discountedPrice: 340,
       thumbnail: "/assets/random.jpg",
-    },
-    {
-      id: 0,
-      title: "Title of Product 2",
-      price: 400,
-      discountedPrice: 340,
-      thumbnail: "/assets/random.jpg",
-    }
-  ]);
+    });
   // const handleTitle = (event) => {
   //     setItem({
   //         ...item,
@@ -55,6 +47,13 @@ const Products = () => {
   //     })
   // }
 
+  const handleTitle = (event) => {
+    setItem({
+      ...item,
+      title: event.target.value,
+    });
+  };
+
   const handleInput = (event) => {
     setItem({
       ...item,
@@ -65,17 +64,16 @@ const Products = () => {
   const handleButton = (event) => {};
   return (
     <div className="product-list">
-      {/* <div><input onChange={addProduct}></input></div> */}
-      {
-        item.map(elements => {
-            return (<ListItem data={elements}/>)
-        })
-      }
+      {/* <div><input onChange={addProduct}></input></div> 
+      {item.map((elements) => {
+        return <ListItem data={elements} />;
+      })} */}
+      <ListItem data={item}></ListItem>
       <div>
         <form>
           <label>Title</label>
           <br />
-          <input name="title" value={item.title} onChange={handleInput}></input>
+          <input name="title" value={item.title} onChange={handleTitle}></input>
           <br />
           <label>Price</label>
           <br />
