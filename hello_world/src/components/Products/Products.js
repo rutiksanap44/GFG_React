@@ -1,6 +1,7 @@
 import Form from "../Form/Form";
 import ListItem from "../ListItems/ListItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from 'axios'
 
 // const items = [
 //     {
@@ -21,13 +22,36 @@ import { useState } from "react";
 // ]
 
 const Products = () => {
-  const [item, setItem] = useState({
-    id: 0,
+  const [item, setItem] = useState([
+    {
+      id: 0,
     title: "Title of Product 1",
     price: 400,
     discountedPrice: 340,
-    thumbnail: "/assets/random.jpg",
-  });
+    thumbnail: "/assets/random.jpg"
+    },{
+      id: 1,
+    title: "Title of Product 2",
+    price: 400,
+    discountedPrice: 340,
+    thumbnail: "/assets/random.jpg"
+    }
+    ]);
+
+  useEffect(() => {
+    async function fetchItems(){
+      const responce = await axios.get('https://gfgcart-default-rtdb.firebaseio.com/items.json');
+      const data = responce.data;
+      const transformedData = data.map((item,index) => {
+        return {
+          ...item,
+          id : index
+        }
+      })
+      setItem(transformedData)
+    }
+    fetchItems();
+  },[]);
 
   const handleInput = (event) => {
     setItem({
@@ -36,14 +60,12 @@ const Products = () => {
     });
   };
 
-  const handleButton = (event) => {};
+  // const handleButton = (event) => {};
   return (
     <div className="product-list">
-      {/* <div><input onChange={addProduct}></input></div> 
       {item.map((elements) => {
-        return <ListItem data={elements} />;
-      })} */}
-      <ListItem key={item.id} data={item}></ListItem>
+        return <ListItem key={elements.id} data={elements} />;
+      })}
       <div>
         {/* <form>
           <label>Title</label>
@@ -65,7 +87,7 @@ const Products = () => {
           <button onClick={handleButton}>Submit</button>
     </form> */}
       </div>
-      <Form item={item} onChangeInput={handleInput}></Form>
+      <Form item={item[0]} onChangeInput={handleInput}></Form>
     </div>
   );
 };

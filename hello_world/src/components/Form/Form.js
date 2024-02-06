@@ -4,7 +4,6 @@ const Form = (props) => {
         event.preventDefault();
     }
     const handleInput = e => {
-        // console.log(props.onChangeInput(e))
         props.onChangeInput(e)
     }
     return (
