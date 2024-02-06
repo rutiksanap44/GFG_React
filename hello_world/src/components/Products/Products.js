@@ -40,15 +40,20 @@ const Products = () => {
 
   useEffect(() => {
     async function fetchItems(){
-      const responce = await axios.get('https://gfgcart-default-rtdb.firebaseio.com/items.json');
-      const data = responce.data;
-      const transformedData = data.map((item,index) => {
-        return {
-          ...item,
-          id : index
-        }
-      })
-      setItem(transformedData)
+      try{
+        const responce = await axios.get('https://gfgcart-default-rtdb.firebaseio.com/items.json');
+        const data = responce.data;
+        const transformedData = data.map((item,index) => {
+          return {
+            ...item,
+            id : index
+          }
+        })
+        setItem(transformedData)
+      }
+      catch(error){
+        console.log(`Error - ${error}`)
+      }
     }
     fetchItems();
   },[]);
@@ -60,11 +65,15 @@ const Products = () => {
     });
   };
 
+  const updateItemInner = itemId => {
+    console.log(`Item with an ID : ${itemId}`)
+  }
+
   // const handleButton = (event) => {};
   return (
     <div className="product-list">
       {item.map((elements) => {
-        return <ListItem key={elements.id} data={elements} />;
+        return <ListItem key={elements.id} data={elements} updateItemInner={updateItemInner}/>;
       })}
       <div>
         {/* <form>

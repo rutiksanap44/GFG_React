@@ -1,6 +1,6 @@
 import AddtoCartIcon from "../../assets/icons/cart.svg";
 import { useState } from "react";
-const ListItem = ({ data }) => {
+const ListItem = ({ data, updateItemInner }) => {
   const [counter, setCounter] = useState(0);
 
   const increaseCounter = () => {
@@ -25,7 +25,7 @@ const ListItem = ({ data }) => {
           <h2>{data.title}</h2>
         </div>
       </div>
-      <span className="cart-message">{}</span>
+      <button onClick={()=>updateItemInner(data.id)}>Update Title</button>
       {counter === 0 ? (
         <div>
           <button onClick={increaseCounter} className={"cart-add"}>
