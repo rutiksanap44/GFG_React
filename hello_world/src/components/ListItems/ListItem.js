@@ -25,7 +25,7 @@ const ListItem = ({ data, updateItemInner }) => {
           <h2>{data.title}</h2>
         </div>
       </div>
-      <button onClick={()=>updateItemInner(data.id)}>Update Title</button>
+      <button  className={"cart-add"} onClick={()=>updateItemInner(data.id)}>Update Title</button>
       {counter === 0 ? (
         <div>
           <button onClick={increaseCounter} className={"cart-add"}>
