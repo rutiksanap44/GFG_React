@@ -3,8 +3,26 @@ import ListItem from "../ListItems/ListItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "../UI/Loader";
-const Products = () => {
+const Products = ({ addItems, removeItems }) => {
+
+  const[presentItems, setPresentItems] = useState([])
+
   const [loader, setLoader] = useState(true);
+
+  const handleAddItem = (id) => {
+    if(presentItems.indexOf(id)>-1){
+      return;
+    }
+    setPresentItems([...presentItems, id])
+    addItems();
+  };
+  const handleRemoveItem = (id) => {
+    let index = presentItems.indexOf(id)
+    if(index>-1){
+      setPresentItems([...presentItems.splice(index,1)])
+    }
+    removeItems();
+  };
 
   const [item, setItem] = useState([
     {
@@ -65,6 +83,8 @@ const Products = () => {
         {item.map((elements) => {
           return (
             <ListItem
+              onAdd={handleAddItem}
+              onRemove={handleRemoveItem}
               key={elements.id}
               data={elements}
               updateItemInner={updateItemInner}

@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Products from './components/Products/Products'
 import Header from './components/Layout/Header';
 import SubHeader from './components/Layout/SubHeader';
 const App = () => {
+  
+  const[cartItems, setCartItems] = useState(0);
+
+  const AddCartItems = () => {
+    setCartItems(cartItems => cartItems+1)
+  }
+  const RemovecartItems = () => {
+    if(cartItems>0){
+    setCartItems(cartItems => cartItems-1)
+    }
+  }
+
   return (
     <div className='app'>
-    <Header></Header>
-    <SubHeader></SubHeader>
-    <Products/>
+    <Header count = {cartItems}/>
+    <SubHeader/>
+    <Products addItems = {AddCartItems} removeItems = {RemovecartItems} />
     </div>
   );
 }

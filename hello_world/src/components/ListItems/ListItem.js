@@ -1,22 +1,26 @@
 import AddtoCartIcon from "../../assets/icons/cart.svg";
 import { Fragment, useState } from "react";
 import Modal from "../UI/Modal";
-const ListItem = ({ data, updateItemInner, handleonclose }) => {
+const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
   const [modal, setModal] = useState(false);
 
   const [counter, setCounter] = useState(0);
 
-  const increaseCounter = () => {
+  const increaseCounter = (event) => {
+    event.stopPropagation();
+    onAdd(data.id);
     setCounter(counter + 1);
   };
-  const decreaseCounter = () => {
+  const decreaseCounter = (event) => {
+    event.stopPropagation();
+    onRemove(data.id);
     if (counter > 0) {
       setCounter(counter - 1);
     }
   };
 
   const handleModal = () => {
-    setModal(previousState => !previousState);
+    setModal((previousState) => !previousState);
   };
   return (
     <Fragment>
@@ -45,25 +49,65 @@ const ListItem = ({ data, updateItemInner, handleonclose }) => {
           </div>
         ) : (
           <div className="cart-addon">
-            <button
-              onClick={() => {
-                decreaseCounter();
-              }}
-            >
+            <button onClick={decreaseCounter}>
               <span>-</span>
             </button>
             <span className="counter">{counter}</span>
-            <button
-              onClick={() => {
-                increaseCounter();
-              }}
-            >
+            <button onClick={increaseCounter}>
               <span>+</span>
             </button>
           </div>
         )}
       </div>
-      {modal && <Modal onClose={handleModal}>List Item Children</Modal>}
+      {modal && (
+        <Modal onClose={handleModal}>
+          <div className="item_card__modal">
+            <div className="img-wrap"></div>
+            <img className={"img-fluid"} src={data.thumbnail} alt="Cart here" />
+          </div>
+          <div className="meta">
+            <h3>{data.title}</h3>
+          </div>
+          <div className={"price_div"}>
+            <div>
+              <span>₹{data.price}</span>
+            </div>
+            <strike>{data.discountedPrice}</strike>
+          </div>
+          <div>
+            <p>{data.description}</p>
+          </div>
+          {counter === 0 ? (
+            <div>
+              <button
+                onClick={increaseCounter}
+                className={"cart-add cart-add__modal"}
+              >
+                <span>Add to Cart</span>
+                <img src={AddtoCartIcon} alt="cart here" />
+              </button>
+            </div>
+          ) : (
+            <div className="cart-addon">
+              <button
+                onClick={() => {
+                  decreaseCounter();
+                }}
+              >
+                <span>-</span>
+              </button>
+              <span className="counter">{counter}</span>
+              <button
+                onClick={() => {
+                  increaseCounter();
+                }}
+              >
+                <span>+</span>
+              </button>
+            </div>
+          )}
+        </Modal>
+      )}
     </Fragment>
   );
 };
