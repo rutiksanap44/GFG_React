@@ -13,10 +13,13 @@ const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
   };
   const decreaseCounter = (event) => {
     event.stopPropagation();
-    onRemove(data.id);
-    if (counter > 0) {
-      setCounter(counter - 1);
+    if(counter === 0 ){
+      return;
     }
+    if (counter === 1) {
+      onRemove(data.id);
+    }
+    setCounter(counter - 1);
   };
 
   const handleModal = () => {

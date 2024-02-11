@@ -19,9 +19,11 @@ const Products = ({ addItems, removeItems }) => {
   const handleRemoveItem = (id) => {
     let index = presentItems.indexOf(id)
     if(index>-1){
-      setPresentItems([...presentItems.splice(index,1)])
+      let items = [...presentItems];
+      items.splice(index,1)
+      setPresentItems([...items])
+      removeItems();
     }
-    removeItems();
   };
 
   const [item, setItem] = useState([

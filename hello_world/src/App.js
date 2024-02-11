@@ -7,12 +7,10 @@ const App = () => {
   const[cartItems, setCartItems] = useState(0);
 
   const AddCartItems = () => {
-    setCartItems(cartItems => cartItems+1)
+    setCartItems(cartItems+1)
   }
   const RemovecartItems = () => {
-    if(cartItems>0){
-    setCartItems(cartItems => cartItems-1)
-    }
+    setCartItems(cartItems - 1)
   }
 
   return (
