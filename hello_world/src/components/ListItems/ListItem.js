@@ -17,7 +17,7 @@ const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
       return;
     }
     if (counter === 1) {
-      onRemove(data.id);
+      onRemove(data.id );
     }
     setCounter(counter - 1);
   };
