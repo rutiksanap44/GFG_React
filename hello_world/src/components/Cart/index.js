@@ -1,8 +1,9 @@
 import { Fragment } from "react";
 import { useState } from "react";
 import Modal from "../UI/Modal";
+import CartItems from "./CartItems";
 
-const Cart = ({ count }) => {
+const Cart = ({ count, cartItems }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => {
@@ -40,32 +41,20 @@ const Cart = ({ count }) => {
           <div className="checkout-modal">
             <h2>Checkout Modal</h2>
             <div className="checkout-modal_list">
-              <div className="checkout-modal_list-item">
-                <div className="img-wrap">
-                  <img
-                    height={"200px"}
-                    src="https://mittalbuilders.com/wp-content/uploads/2020/12/Reasons-to-settle-down-in-Pune-1400x700.png"
-                  ></img>
-                </div>
-                <div className="information">
-                  <div>
-                    <h4>Title of the Product</h4>
-                    <div className="pricing">
-                      <span>2000</span>
-                      <small>
-                        <strike>2500</strike>
-                      </small>
-                    </div>
-                  </div>
-                  <div></div>
-                </div>
-              </div>
-              <div className="empty-cart">Please Add Something</div>
+              {count > 0 ? (
+                cartItems.map((elements) => {
+                  return (
+                    <CartItems key={elements.id} data={elements}></CartItems>
+                  )
+                })
+              ) : (
+                <div className="empty-cart">Please Add Something</div>
+              )}
             </div>
             {count > 0 && (
               <div className="checkout-modal_footer">
                 <div className="totalAmount">
-                  <h4>Total Amount</h4>
+                  <h4>Total Amount : </h4>
                   <h4>2000 INR</h4>
                 </div>
                 <button>Order Now</button>

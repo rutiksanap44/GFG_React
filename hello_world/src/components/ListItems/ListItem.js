@@ -4,22 +4,23 @@ import Modal from "../UI/Modal";
 const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
   const [modal, setModal] = useState(false);
 
-  const [counter, setCounter] = useState(0);
+  // const [counter, setCounter] = useState(0);
 
   const increaseCounter = (event) => {
     event.stopPropagation();
     onAdd(data.id);
-    setCounter(counter + 1);
+    // setCounter(counter + 1);
   };
   const decreaseCounter = (event) => {
     event.stopPropagation();
-    if(counter === 0 ){
-      return;
-    }
-    if (counter === 1) {
-      onRemove(data.id );
-    }
-    setCounter(counter - 1);
+    onRemove(data.id );
+    // if(data.quantity === 0 ){
+    //   return;
+    // }
+    // if (data.quantity === 1) {
+    //   onRemove(data.id );
+    // }
+    // setCounter(counter - 1); 
   };
 
   const handleModal = () => {
@@ -43,7 +44,7 @@ const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
         <button className={"cart-add"} onClick={() => updateItemInner(data.id)}>
           Update Title
         </button>
-        {counter === 0 ? (
+        {data.quantity === 0 ? (
           <div>
             <button onClick={increaseCounter} className={"cart-add"}>
               <span>Add to Cart</span>
@@ -55,7 +56,7 @@ const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
             <button onClick={decreaseCounter}>
               <span>-</span>
             </button>
-            <span className="counter">{counter}</span>
+            <span className="counter">{data.quantity}</span>
             <button onClick={increaseCounter}>
               <span>+</span>
             </button>
@@ -80,7 +81,7 @@ const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
           <div>
             <p>{data.description}</p>
           </div>
-          {counter === 0 ? (
+          {data.quantity === 0 ? (
             <div>
               <button
                 onClick={increaseCounter}
@@ -99,7 +100,7 @@ const ListItem = ({ data, updateItemInner, onAdd, onRemove }) => {
               >
                 <span>-</span>
               </button>
-              <span className="counter">{counter}</span>
+              <span className="counter">{data.quantity}</span>
               <button
                 onClick={() => {
                   increaseCounter();
